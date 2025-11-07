@@ -60,23 +60,6 @@ class WindowUtils {
 	#end
 	public static function transparentWindow(active:Bool = true, r:Int=1, g:Int=1, b:Int=1, ?res:Int = 0){}
 
-	/**
-	 * set the opacity of the window between 0 and 255
-	 */
-	 #if windows
-	@:functionCode('
-	HWND hWnd = GetActiveWindow();
-
-	if (SetLayeredWindowAttributes != nullptr) {
-		LONG_PTR style = GetWindowLongPtr(hWnd, GWL_EXSTYLE);
-		SetWindowLongPtr(hWnd, GWL_EXSTYLE, style | WS_EX_LAYERED);
-
-		SetLayeredWindowAttributes(hWnd, RGB(0, 0, 0), opacity, LWA_ALPHA);
-	}
-	')
-	#end //the mac opacity thing will delay until i get inspiration to ever code in haxe or someone actually develops it here
-	public static function setWindowOpacity(opacity:Int=255){}
-
 	public static function setBorderlessWindow(hide:Bool){
 		lime.app.Application.current.window.borderless = hide;
 	}

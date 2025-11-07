@@ -12,7 +12,7 @@ import openfl.display.Sprite;
 import openfl.events.UncaughtErrorEvent;
 
 #if (linux && !debug)
-@:cppInclude('../../../../src/_external/gamemode_client.h') // i don't care enough to properly point back to the src folder whatever it works fuck you
+@:cppInclude('./_external/gamemode_client.h')
 @:cppFileCode('#define GAMEMODE_AUTO')
 #end
 class Main extends Sprite {
@@ -208,11 +208,7 @@ class InitState extends flixel.FlxState {
 				
 				Conductor.stop();
 				FlxG.sound.play(Paths.audio("byebye", 'sfx'));
-				Main.windowTween = FlxTween.num(255, 0, 2, {ease: FlxEase.quadInOut, 
-					onUpdate: tween -> {
-						var curVal = Std.int(255 + (0 - 255) * tween.scale);
-						funkin.backend.WindowUtils.setWindowOpacity(Std.int(curVal));}, 
-					onComplete: tween -> Sys.exit(1)});
+				Main.windowTween = FlxTween.tween(FlxG.stage.window, {opacity: 0}, 2, {ease: FlxEase.quadInOut, onComplete: tween -> Sys.exit(0)});
 			}
         }, true);
 
